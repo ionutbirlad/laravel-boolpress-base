@@ -17,4 +17,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', 'PostController@index')->name('posts');
+// Route::get('/', 'PostController@index')->name('posts');
+
+Route::get('/posts/published', 'PostController@indexPublished')->name('articles.index.published');
+
+Route::resource('posts', 'PostController');
