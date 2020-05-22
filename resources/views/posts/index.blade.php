@@ -6,20 +6,35 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
   </head>
   <body>
-    <div class="wrapper">
-      <div class="head">
-        <span>Titolo</span>
-        <span>Autore</span>
-        <span>Azioni</span>
-      </div>
-      @foreach ($posts as $post)
-        <div class="post">
-          <span>{{$post->title}}</span>
-          <span>{{$post->author}}</span>
-          <span><a href="{{route('posts.edit', $post)}}">Modifica</a></span>
-          <span><a href="{{route('posts.show', $post)}}">Visualizza</a></span>
-        </div>
-      @endforeach
+    <div class="container">
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titolo</th>
+            <th scope="col">Autore</th>
+            <th scope="col">Azioni</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($posts as $post)
+            <tr>
+              <th scope="row">{{$post->id}}</th>
+              <td>{{$post->title}}</td>
+              <td>{{$post->author}}</td>
+              <td><a class="btn btn-primary" href="{{route('posts.edit', $post)}}" role="button">Modifica</a></td>
+              <td><a class="btn btn-primary" href="{{route('posts.show', $post)}}" role="button">Visualizza</a></td>
+              <td>
+                <form action="{{route('posts.destroy', $post)}}" method="post">
+                @method('DELETE')
+                @csrf
+                <a type="submit" class="btn btn-primary" role="button">Elimina</a>
+                </form>
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
     </div>
   </body>
 </html>
