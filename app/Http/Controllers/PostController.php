@@ -22,7 +22,12 @@ class PostController extends Controller
     public function index()
     {
 
-      $posts = Post::all();
+      // ------------------così visualizzo tutti in una pagina------------------
+      // $posts = Post::all();
+      // ------------------così visualizzo tutti in una pagina------------------
+
+      // $posts = Post::orderBy('id','desc')->paginate('25');
+      $posts = Post::paginate('25');
       // dd($posts);
 
         return view('posts.index', compact('posts'));
@@ -168,13 +173,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
         $post = Post::find($id);
 
         if (empty($post)) {
           abort ('404');
         }
+
+        $post->delete();
 
         return redirect()->route('posts.index');
     }
